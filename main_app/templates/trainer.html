@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<p>trainer</p>
+<a href="/logout">logout</a>
+<p>Hello {{request.user.username}}</p>
+
+{% endblock %}

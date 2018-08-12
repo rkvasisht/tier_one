@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<h1>workouts</h1>
+
+<p>Create a Workout</p>
+<form action="/post_workout/" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn waves-effect waves-purple purple" type="submit">Submit!</button>
+  </form>
+  {% for workout in workouts %}
+  <p>{{workout.name}}</p>
+  <a href='/workouts/editworkout/{{ workout.id }}'><p>Edit Workout</p></a>
+  <a href="#"><p>Delete Workout</p></a>
+
+  {% endfor %}
+  
+ 
+{% endblock %}

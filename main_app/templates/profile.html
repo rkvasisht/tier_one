@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+	{% if user.is_staff %}
+
+	    {% include "trainer.html" %}
+
+	{% else %}
+
+	    {% include "client.html" %}
+
+	{% endif %}
+
+{% endblock %}
