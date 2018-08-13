@@ -1,21 +1,28 @@
 from django import forms
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import LoginForm, SignUpForm, WorkoutForm, ExcerciseForm
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 import requests
-from .models import Excercise, Workout
+from .models import Excercise, Workout, Profile
 from django.utils import timezone
 
 # Create your views here.
 
 
+def update_profile(request):
+    workouts = Workout.objects.all()
+    users = User.objects.all()
+    profile = Profile.objects.all()
+    return render(request, 'profile.html',{'workouts': workouts, 'users': users, 'profile': profile})
 
-def profile(request):
-    return render(request, 'profile.html')
+
+
+
+
 
 
 def home(request):
@@ -24,9 +31,13 @@ def home(request):
     return render(request, 'workouts/home.html',{'workouts': workouts, 'form': form})
 
 def editworkout(request, workout_id):
+    workout_obj = get_object_or_404(Workout, id=workout_id)
     workouts = Workout.objects.all()
+    excercisesinworkout = workout_obj.excercise_set.all()
+    listofexcercises = excercisesinworkout.all()
+    print(excercisesinworkout)
     form = ExcerciseForm()
-    return render(request, 'workouts/editworkout.html',{'workouts': workouts, 'form': form})
+    return render(request, 'workouts/editworkout.html',{'workouts': workouts, 'form': form, 'excercisesinworkout': excercisesinworkout, 'listofexcercises':listofexcercises})
     
 
 
@@ -89,6 +100,19 @@ def post_excercise(request, workout_id):
         excercise = form.save(commit=False)
         excercise.save()
         return HttpResponseRedirect('/workouts')
+    else:
+        return HttpResponse('The form broke!')
+
+def add_workouts_to_user(request):
+    user_id = request.POST.get('user_id', None)
+    workout_id = request.POST.get('workout_id', None)
+    if user_id and workout_id:
+        user = User.objects.get(id=int(user_id))
+        profile = user.profile
+        workout = Workout.objects.get(id = int(workout_id))
+        profile.workouts.add(workout)
+        # workoutToProfile.save()
+        return HttpResponse("yay")
     else:
         return HttpResponse('The form broke!')
 

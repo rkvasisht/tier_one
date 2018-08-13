@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Excercise, Workout
+from .models import Excercise, Workout, PushedWorkout, Profile
+
 
 
 
@@ -30,3 +31,9 @@ class ExcerciseForm(forms.ModelForm):
     class Meta:
         model = Excercise
         fields = ['name', 'reps','sets','mins', 'secs', 'workout']
+
+
+
+
+
+

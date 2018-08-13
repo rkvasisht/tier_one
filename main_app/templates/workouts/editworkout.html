@@ -9,5 +9,10 @@
 </form>
 
 
+{% for excercise in excercisesinworkout %}
+  <p>{{ excercise.name }}</p>
+
+  {% endfor %}
+
 
 {% endblock %}
