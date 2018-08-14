@@ -20,11 +20,13 @@
 
 <form action="/add_workouts_to_user/" method="POST">
     {% csrf_token %}
+    <label>Please Select a Client(s) and Workout(s)</label>
         <select name='user_id'>
             {% for user in users %}
 				<option  data-tokens="{{user.username}}" value={{user.id}}>{{user.username}}</option>
 			{% endfor %}
         </select>
+   
         <select name='workout_id'>
             {% for workout in workouts %}
 				<option  data-tokens="{{workout.name}}" value={{workout.id}}>{{workout.name}}</option>
