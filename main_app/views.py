@@ -129,10 +129,13 @@ def workoutsforclients(request, user_id):
     print(user_id)
     user = User.objects.get(id=int(user_id))
     profilenumber = user.profile.id
+    print(profilenumber)
     profile = user.profile
-    workout = profile.workouts.get(profile_id=int(profilenumber))
-    print(workout)
-    return render(request, 'workouts/workoutsforclients.html')
+    workoutfilter = profile.workouts.all()
+    print(workoutfilter)
+    
+    
+    return render(request, 'workouts/workoutsforclients.html', {'workouts':workoutfilter, 'user':user})
 
 
 

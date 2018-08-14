@@ -1,8 +1,27 @@
 {% extends 'base.html' %} {% block content %}
+<nav>
+        <div class="nav-wrapper purple darken-4">
+            <a href="#" class="brand-logo">Tier One</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/">Profile</a></li>
+            <li><a href="/workouts">Workouts</a></li>
+            <li><a href="/signup">SignUp</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
 
-<h1>test</h1>
+
+<h4>The workouts for {{user.username}} are listed below:</h4>
+{% for workout in workouts %}
+<p>{{workout.name}}</p>
+<a href='/workouts/editworkout/{{ workout.id }}'><p>Edit Workout</p></a>
 
 
+
+
+  {% endfor %}
 
 
 {% endblock %}
