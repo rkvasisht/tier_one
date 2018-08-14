@@ -2,7 +2,20 @@
 {% load staticfiles %}
 {% block content %}
 
-<p>trainer</p>
+<nav>
+        <div class="nav-wrapper purple darken-4">
+            <a href="#" class="brand-logo">Tier One</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/">Profile</a></li>
+            <li><a href="/workouts">Workouts</a></li>
+            <li><a href="/signup">SignUp</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+<div class='trainer'>
 <p>Hello {{request.user.username}}</p>
 
 <form action="/add_workouts_to_user/" method="POST">
@@ -17,13 +30,21 @@
 				<option data-tokens="{{workout.name}}" value={{workout.id}}>{{workout.name}}</option>
 			{% endfor %}
         </select>
-        <button class="btn waves-effect waves-purple purple" type="submit">Submit!</button>
+        <button class="btn waves-effect waves-purple darken-4" type="submit">Submit!</button>
  </form>
     
 
+ {% for user in users %}
+ <p>{{user.username}}</p>
+ <a href='/workoutsforclients/{{ user.id }}'><p>Edit Workout</p></a>
+ 
 
+
+ {% endfor %}
 
 
 
 
 {% endblock %}
+
+</div>

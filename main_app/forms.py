@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Excercise, Workout, PushedWorkout, Profile
+from .models import Excercise, Workout, Profile
 
 
 
@@ -30,7 +30,8 @@ class WorkoutForm(forms.ModelForm):
 class ExcerciseForm(forms.ModelForm):
     class Meta:
         model = Excercise
-        fields = ['name', 'reps','sets','mins', 'secs', 'workout']
+        fields = ['name', 'weight', 'reps','sets','mins', 'secs',  'workout']
+        help_text = {'name':'Please name the excercise', 'weight':'Please enter weight', 'reps':'Please enter reps', 'sets':'Please enter sets', 'mins':'Please enter minuetes of excercise', 'weight':'Please enter weight', 'reps':'Please enter reps', 'sets':'Please enter sets', 'secs':'Please enter seconds of excercise' }
 
 
 

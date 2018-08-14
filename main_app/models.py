@@ -12,6 +12,11 @@ from django.dispatch import receiver
 class Workout(models.Model):
     name = models.CharField(max_length=100, default=None)
     pub_date = models.DateTimeField('date published')
+
+    def __str__(self):
+        return self.name
+
+    
   
 
 
@@ -23,6 +28,9 @@ class Excercise(models.Model):
     mins = models.IntegerField(default=0)
     secs = models.IntegerField(default=0)
     workout = models.ForeignKey(Workout, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
 
 class Profile(models.Model):
@@ -40,17 +48,10 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 
-class PushedWorkout(models.Model):
-    workouts = models.ManyToManyField(Workout)
-    users = models.ManyToManyField(User)
-    pub_date = models.DateTimeField(default=timezone.now, blank=True)
-    inclass = models.BooleanField(default=True)
-    assigned = models.BooleanField(default=False)
 
 
 
-def __str__(self):
-        return self.name
+
 
 
     

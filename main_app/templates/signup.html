@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block content %}
+<nav>
+    <div class="nav-wrapper purple darken-4">
+        <a href="#" class="brand-logo">Tier One</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/signup">SignUp</a></li>
+        <li><a href="/login">Login</a></li>
+    
+
+        </ul>
+    </div>
+</nav>
+
   <h2>Sign up</h2>
   <form method="post">
     {% csrf_token %}

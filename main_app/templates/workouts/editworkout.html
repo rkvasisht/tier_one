@@ -1,16 +1,40 @@
 {% extends 'base.html' %} {% block content %}
+<nav>
+    <div class="nav-wrapper purple darken-4">
+        <a href="#" class="brand-logo">Tier One</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/">Profile</a></li>
+        <li><a href="/excercises">Excercices</a></li>
+        <li><a href="/workouts">Workouts</a></li>
+        <li><a href="/signup">SignUp</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/logout">Logout</a></li>
+        </ul>
+    </div>
+</nav>
 <h1>{{ workout.name }}</h1>
 
 <h3>Add Excercise</h3>
 <form action= "post_excercise" method="POST">
   {% csrf_token %}
   {{form.as_p}}
-  <button class="btn waves-effect waves-purple purple" type="submit">Submit!</button>
+  <button class="btn waves-effect waves-purple purple darken-4" type="submit">Submit!</button>
 </form>
 
 
 {% for excercise in excercisesinworkout %}
-  <p>{{ excercise.name }}</p>
+<ul>
+  <li>Name: {{ excercise.name }}</li>
+  <li>Reps: {{ excercise.reps }}</li>
+  <li>Sets: {{ excercise.sets }}</li>
+  <li>Weight: {{ excercise.weight }}</li>
+  <li>Minuetes: {{ excercise.mins }}</li>
+  <li>Seconds: {{ excercise.secs }}</li>
+</ul>
+  
+
+
+
 
   {% endfor %}
 

@@ -13,33 +13,41 @@ from django.utils import timezone
 # Create your views here.
 
 
-def update_profile(request):
-    workouts = Workout.objects.all()
+def profile(request):
+    print(request.user.id)
+    userlogged = User.objects.get(id = int(request.user.id))
+    workout = Workout.objects.all()
     users = User.objects.all()
-    profile = Profile.objects.all()
-    return render(request, 'profile.html',{'workouts': workouts, 'users': users, 'profile': profile})
+    profiles = Profile.objects.all()
+    userinfo = userlogged.profile
+    workoutsforuser = userinfo.workouts.all()
+    print(workoutsforuser)
+    return render(request, 'profile.html',{'workouts': workout, 'users': users, 'profiles':profiles, 'workoutsforuser':workoutsforuser})
 
 
 
-
-
-
-
-def home(request):
+def workoutlanding(request):
     workouts = Workout.objects.all()
     form = WorkoutForm()
-    return render(request, 'workouts/home.html',{'workouts': workouts, 'form': form})
+    return render(request, 'workouts/workoutlanding.html',{'workouts': workouts, 'form': form,})
 
 def editworkout(request, workout_id):
     workout_obj = get_object_or_404(Workout, id=workout_id)
     workouts = Workout.objects.all()
     excercisesinworkout = workout_obj.excercise_set.all()
     listofexcercises = excercisesinworkout.all()
-    print(excercisesinworkout)
+    print(excercisesinworkout, )
     form = ExcerciseForm()
     return render(request, 'workouts/editworkout.html',{'workouts': workouts, 'form': form, 'excercisesinworkout': excercisesinworkout, 'listofexcercises':listofexcercises})
     
-
+def clientviewworkout(request, workout_id):
+    print(workout_id)
+    workout_obj = get_object_or_404(Workout, id=workout_id)
+    workouts = Workout.objects.all()
+    excercisesinworkout = workout_obj.excercise_set.all()
+    listofexcercises = excercisesinworkout.all()
+    print(listofexcercises)
+    return render(request, 'workouts/clientworkouts.html',{'workouts': workouts,  'excercisesinworkout': excercisesinworkout, 'listofexcercises':listofexcercises})
 
 def login_view(request):
     if request.method == 'POST':
@@ -111,14 +119,20 @@ def add_workouts_to_user(request):
         profile = user.profile
         workout = Workout.objects.get(id = int(workout_id))
         profile.workouts.add(workout)
-        # workoutToProfile.save()
-        return HttpResponse("yay")
+        return HttpResponseRedirect('/')
     else:
         return HttpResponse('The form broke!')
 
 
 
-
+def workoutsforclients(request, user_id):
+    print(user_id)
+    user = User.objects.get(id=int(user_id))
+    profilenumber = user.profile.id
+    profile = user.profile
+    workout = profile.workouts.get(profile_id=int(profilenumber))
+    print(workout)
+    return render(request, 'workouts/workoutsforclients.html')
 
 
 

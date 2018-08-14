@@ -1,8 +1,27 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block content %}
+<nav>
+        <div class="nav-wrapper purple darken-4">
+            <a href="#" class="brand-logo black-text">Logo</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/">Profile</a></li>
+            <li><a href="/signup">SignUp</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
 
-<p>Hello {{request.user.username}}</p>
+<div class='client'>
+<p>Hello {{user.username}}</p>
 
-<a href="/logout">logout</a>
+
+
+        {% for workout in workoutsforuser %}
+        <p>{{workout.name}}</p>
+        <a href='/clientworkouts/{{ workout.id }}'><p>View Workout</p></a>
+        {% endfor %}
+
 {% endblock %}
+</div>
